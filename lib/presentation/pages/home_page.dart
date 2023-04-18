@@ -7,11 +7,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Home - Cardápio'),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) => const Text('Item'), 
-        itemCount: 0,
+        itemCount: 10,
 
         separatorBuilder: (context, index) => const Divider(), 
       ),
