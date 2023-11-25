@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<CatalogViewModel>(context);
+    final products = vm.products;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,9 +23,16 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.only(top: 10),
-        itemCount: vm.products.length,
-        itemBuilder: (context, index) => CatalogItemWidget(
-          product: vm.products[index],
+        itemCount: products.length,
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () => Navigator.pushNamed(
+            context,
+            "/detail",
+            arguments: products[index].id,
+          ),
+          child: CatalogItemWidget(
+            product: products[index],
+          ),
         ), 
         separatorBuilder: (context, index) => const Divider(), 
       ),
