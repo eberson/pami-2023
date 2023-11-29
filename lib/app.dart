@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loja/cart.dart';
 import 'package:loja/catalog_view_model.dart';
+import 'package:loja/detail_page.dart';
 import 'package:loja/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,9 @@ class Aplicacao extends StatelessWidget {
         ChangeNotifierProvider<CatalogViewModel>(
           create: (_) => CatalogViewModel(),
         ),
+        ChangeNotifierProvider<CartViewModel>(
+          create: (_) => CartViewModel(),
+        ),
       ],
       child: MaterialApp(
         title: "Loja",
@@ -22,6 +27,7 @@ class Aplicacao extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/": (context) => const HomePage(),
+          "/detail": (context) => const DetailPage(),
         },
         debugShowCheckedModeBanner: false,
       ),
