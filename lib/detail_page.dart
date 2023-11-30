@@ -14,7 +14,7 @@ class DetailPage extends StatelessWidget {
     //recuperamos o view model (catalogo) do Provider
     final vm = Provider.of<CatalogViewModel>(context);
 
-    //consultamos, na lista de produtos do catalogo, pelo produto 
+    //consultamos, na lista de produtos do catalogo, pelo produto
     //com o id que recebemos por parametro
     final product = vm.products.firstWhere((p) => p.id == id);
 
@@ -31,7 +31,9 @@ class DetailPage extends StatelessWidget {
             info("Nome", product.name),
             info("Preço", product.salePriceFormatted),
             info("Estoque", "${product.quantity}"),
-            const QuantityWidget(),
+            QuantityWidget(
+              maxQuantity: product.quantity,
+            ),
           ],
         ),
       ),
@@ -39,12 +41,12 @@ class DetailPage extends StatelessWidget {
   }
 
   Widget info(String label, String info) => Row(
-    children: [
-      SizedBox(
-        width: 100,
-        child: Text(label),
-      ),
-      Text(info),
-    ],
-  );
+        children: [
+          SizedBox(
+            width: 100,
+            child: Text(label),
+          ),
+          Text(info),
+        ],
+      );
 }
