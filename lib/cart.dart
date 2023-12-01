@@ -9,6 +9,16 @@ class CartViewModel extends ChangeNotifier {
     return items.where((i) => i.product.id == product.id).isNotEmpty;    
   }
 
+  CartItem? get(String productId) {
+    final index = items.indexWhere((i) => i.product.id == productId);
+
+    if (index < 0) {
+      return null;
+    }
+
+    return items[index];
+  }
+
   void addToCart(Product product) {
     //recupera a posicao do array onde se encontra o produto cujo id 
     //é igual ao id do produto recebido por parametro

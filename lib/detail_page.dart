@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja/cart.dart';
 import 'package:loja/catalog_view_model.dart';
 import 'package:loja/product.dart';
+import 'package:loja/quantity_widget.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
@@ -62,7 +63,10 @@ class DetailPage extends StatelessWidget {
 
   Widget manage(CartViewModel cartVM, Product product) {
     if (cartVM.isInCart(product)) {
-      return const Text("libera para mexer na quantidade");
+      return QuantityWidget(
+        startQuantity: cartVM.get(product.id)?.quantity ?? 0, 
+        maxQuantity: product.quantity,
+      );
     }
 
     return SizedBox(
