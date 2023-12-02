@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja/cart_view_model.dart';
 import 'package:loja/catalog_view_model.dart';
 import 'package:loja/quantity_widget.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +13,15 @@ class DetailPage extends StatelessWidget {
     final id = ModalRoute.of(context)!.settings.arguments as String;
 
     //recuperamos o view model (catalogo) do Provider
-    final vm = Provider.of<CatalogViewModel>(context);
+    final catalog = Provider.of<CatalogViewModel>(context);
+
+    final cart = Provider.of<CartViewModel>(context);
 
     //consultamos, na lista de produtos do catalogo, pelo produto
     //com o id que recebemos por parametro
-    final product = vm.products.firstWhere((p) => p.id == id);
+    final product = catalog.products.firstWhere((p) => p.id == id);
+
+    final quantity = cart.get(product.id)?.quantity ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +37,10 @@ class DetailPage extends StatelessWidget {
             info("Preço", product.salePriceFormatted),
             info("Estoque", "${product.quantity}"),
             QuantityWidget(
+              startQuantity: quantity,
               maxQuantity: product.quantity,
+              onAdd: () => cart.add(product),
+              onRemove: () => cart.remove(product),
             ),
           ],
         ),
